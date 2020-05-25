@@ -1,0 +1,63 @@
+#include<Stdio.h>
+#include<Stdlib.h>
+#include<time.h>
+#define min 20
+#define max 90
+int ikincimax(int **matris,int *ikincienbuyuk,int satir,int sutun){
+	int i,j,buyuk=NULL;
+	for(i=0;i<satir;i++){
+		for(j=0;j<sutun;j++){
+			if(matris[i][j]>buyuk){
+				*ikincienbuyuk=buyuk;
+				 buyuk=matris[i][j];
+			}
+			else if(matris[i][j]>*ikincienbuyuk)
+				*ikincienbuyuk=matris[i][j];
+		}
+	}
+
+}
+int sum(int **matris,int k,int sutun){
+	int sayi,i,j;
+	for(i=0;i<sutun;i++){
+		sayi+=matris[k][i];
+	}
+	return sayi;
+}
+
+int main(){
+	int **matris,i,j,satir,sutun,sayi,ikincienbuyuk=0,k;
+	printf("Satir sayisini giriniz:");
+	scanf("%d",&satir);
+	printf("Sutun sayisini giriniz:");
+	scanf("%d",&sutun);
+	
+	matris = (int **) calloc(satir, sizeof(int));
+	for(i=0;i<satir;i++)
+		matris[i]=(int*)calloc(sutun,sizeof(int));	
+		
+	
+		
+	srand(time(NULL));
+	for(i=0;i<satir;i++){
+		for(j=0;j<sutun;j++){
+			matris[i][j]=min+rand()%(max-min);
+				}
+	}	
+	for(i=0;i<satir;i++){
+		for(j=0;j<sutun;j++){
+			printf("%d  ",matris[i][j]);
+		}printf("%\n");
+	}
+	ikincimax(matris,&ikincienbuyuk,satir,sutun);
+	printf("\nMatrisin en buyuk ikinci elemani %d\nHangi satir toplamini gormek istersiniz:",ikincienbuyuk);
+	scanf("%d",&k);
+	if(k>satir){
+		printf("Girdiginiz deger satir sayisindan fazladir!");
+		return 0;
+	}
+	k=k-1;
+	printf("%d",sum(matris,k,sutun));
+	
+	
+}
